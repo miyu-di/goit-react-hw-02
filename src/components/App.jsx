@@ -7,10 +7,17 @@ import Notification from "./Notification/Notification";
 import { useState, useEffect } from "react";
 
 export default function App() {
-  const [feedback, setFeedback] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
+  const [feedback, setFeedback] = useState(() => {
+    const savedFeedback = localStorage.getItem("Feedback");
+    if (savedFeedback !== null) {
+      return JSON.parse(savedFeedback);
+    } else {
+      return {
+        good: 0,
+        neutral: 0,
+        bad: 0,
+      };
+    }
   });
 
   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
